@@ -1,0 +1,23 @@
+html,
+body {
+  margin: 0px;
+  background-color: #2F4F30 !important;
+  color: white;
+}
+
+.title {
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+.bj-card {
+  position: relative;
+  width: 150px;
+  left: 100px;
+  margin-left: -75px;
+}
+
+#cpu-cards, #player-cards {
+  height: 240px;
+}
