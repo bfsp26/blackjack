@@ -16,10 +16,11 @@ const createDeck = () => {
     }
   }
 
-  return deck
+  deck = deck
     .map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
+
 };
 
 createDeck();
@@ -33,6 +34,9 @@ const requestCard = () => {
   return deck.pop();
 };
 
-requestCard();
+const getValue = (card) => {
+  const value = card.substring(0, card.length - 1);
+  return (isNaN(value)) ? (value === 'A') ? 11 : 10 : value * 1;
+};
 
-console.log(deck.length);
+console.log(getValue(requestCard()));
