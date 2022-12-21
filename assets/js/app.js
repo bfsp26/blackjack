@@ -1,18 +1,25 @@
 let deck = [];
-const french_suits = ['C', 'D', 'H', 'S'];
-const court_cards = ['A', 'Q', 'J', 'K'];
+const frenchSuits = ['C', 'D', 'H', 'S'];
+const courtCards = ['A', 'Q', 'J', 'K'];
+const btnReqCard = document.querySelector('#btn-request-card');
+const btnNewGame = document.querySelector('#btn-new-game');
+const btnStopGame = document.querySelector('#btn-stop-game');
+let playerCount = document.querySelector('body > div > div:nth-child(2) > div > h1 > small');
+let cpuCount = document.querySelector('body > div > div:nth-child(3) > div > h1 > small');
+let playerPoints = 0;
+let cpuPoints = 0;
 
 const createDeck = () => {
 
   for (let index = 2; index <= 10; index++) {
-    for (let french_suit of french_suits) {
-      deck.push(index + french_suit);
+    for (let frenchSuit of frenchSuits) {
+      deck.push(index + frenchSuit);
     }
   }
 
-  for (let french_suit of french_suits) {
-    for (let court_card of court_cards) {
-      deck.push(court_card + french_suit);
+  for (let frenchSuit of frenchSuits) {
+    for (let courtCard of courtCards) {
+      deck.push(courtCard + frenchSuit);
     }
   }
 
@@ -34,9 +41,13 @@ const requestCard = () => {
   return deck.pop();
 };
 
-const getValue = (card) => {
+const getValueCard = (card) => {
   const value = card.substring(0, card.length - 1);
   return (isNaN(value)) ? (value === 'A') ? 11 : 10 : value * 1;
 };
 
-console.log(getValue(requestCard()));
+btnReqCard.addEventListener('click', () => {
+  const card = requestCard();
+  playerPoints = playerPoints + getValueCard(card);
+  playerCount.innerHTML = playerPoints;
+});
