@@ -55,4 +55,11 @@ btnReqCard.addEventListener('click', () => {
   imgCard.src = `assets/cards/${card}.png`;
   imgCard.classList.add('bj-card');
   playerCards.append(imgCard);
+
+  if (playerPoints > 21) {
+    console.warn('You lost!');
+    btnReqCard.disabled = true;
+  } else if (playerPoints === 21) {
+    console.info('That\'s great!');
+  }
 });
