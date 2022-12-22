@@ -4,6 +4,7 @@ const courtCards = ['A', 'Q', 'J', 'K'];
 const btnReqCard = document.querySelector('#btn-request-card');
 const btnNewGame = document.querySelector('#btn-new-game');
 const btnStopGame = document.querySelector('#btn-stop-game');
+const playerCards = document.querySelector('#player-cards');
 let playerCount = document.querySelector('body > div > div:nth-child(2) > div > h1 > small');
 let cpuCount = document.querySelector('body > div > div:nth-child(3) > div > h1 > small');
 let playerPoints = 0;
@@ -50,4 +51,8 @@ btnReqCard.addEventListener('click', () => {
   const card = requestCard();
   playerPoints = playerPoints + getValueCard(card);
   playerCount.innerHTML = playerPoints;
+  const imgCard = document.createElement('img');
+  imgCard.src = `assets/cards/${card}.png`;
+  imgCard.classList.add('bj-card');
+  playerCards.append(imgCard);
 });
