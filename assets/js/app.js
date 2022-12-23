@@ -1,15 +1,20 @@
 let deck = [];
 const frenchSuits = ['C', 'D', 'H', 'S'];
 const courtCards = ['A', 'Q', 'J', 'K'];
+
+let playerPoints = 0;
+let cpuPoints = 0;
+
 const btnReqCard = document.querySelector('#btn-request-card');
 const btnNewGame = document.querySelector('#btn-new-game');
 const btnStopGame = document.querySelector('#btn-stop-game');
+
 const playerCards = document.querySelector('#player-cards');
 const cpuCards = document.querySelector('#cpu-cards');
-let playerCount = document.querySelector('body > div > div:nth-child(2) > div > h1 > small');
-let cpuCount = document.querySelector('body > div > div:nth-child(3) > div > h1 > small');
-let playerPoints = 0;
-let cpuPoints = 0;
+
+const playerCount = document.querySelector('body > div > div:nth-child(2) > div > h1 > small');
+const cpuCount = document.querySelector('body > div > div:nth-child(3) > div > h1 > small');
+
 
 const createDeck = () => {
 
@@ -25,7 +30,7 @@ const createDeck = () => {
     }
   }
 
-  deck = deck
+  return deck
     .map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
@@ -35,6 +40,8 @@ const createDeck = () => {
 createDeck();
 
 const requestCard = () => {
+
+  console.log(deck);
 
   if (deck.length === 0) {
     throw 'There are no cards in the deck.';
@@ -63,7 +70,20 @@ const cpu = (minPoints) => {
       break;
     }
 
-  } while ((cpuPoints < minPoints) && (minPoints < 21));
+  } while ((cpuPoints < minPoints) && (minPoints <= 21));
+
+  setTimeout(() => {
+    if (cpuPoints === minPoints) {
+      alert('There is no winner.');
+    } else if (minPoints > 21) {
+      alert('Winner: CPU');
+    } else if (cpuPoints > 21) {
+      alert('Winner: Player');
+    } else {
+      alert('Winner: CPU');
+    }
+  }, 100);
+  
 };
 
 btnReqCard.addEventListener('click', () => {
@@ -92,4 +112,18 @@ btnStopGame.addEventListener('click', () => {
   btnReqCard.disabled = true;
   btnStopGame.disabled = true;
   cpu(playerPoints);
+});
+
+btnNewGame.addEventListener('click', () => {
+  console.clear();
+  deck = [];
+  deck = createDeck();
+  playerPoints = 0;
+  cpuPoints = 0;
+  playerCount.innerHTML = 0;
+  cpuCount.innerHTML = 0;
+  cpuCards.innerHTML = '';
+  playerCards.innerHTML = '';
+  btnReqCard.disabled = false;
+  btnStopGame.disabled = false;
 });
